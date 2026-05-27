@@ -3,8 +3,6 @@
   "buildCommand": "npm run build",
   "devCommand": "next dev",
   "installCommand": "npm install",
-  "env": {},
-  "envPrefix": "NEXT_PUBLIC_",
   "framework": "nextjs",
   "regions": ["iad1"],
   "functions": {
