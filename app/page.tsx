@@ -54,6 +54,22 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* Marquee Ticker */}
+        <div className="bg-[#555435] py-4 overflow-hidden whitespace-nowrap border-y border-white/10">
+          <div className="animate-marquee inline-flex">
+            {[...Array(2)].map((_, i) => (
+              <span key={i} className="inline-flex shrink-0">
+                <span className="mx-8 text-white/90 text-sm font-medium tracking-[0.3em] uppercase">• Compassionate Care</span>
+                <span className="mx-8 text-white/90 text-sm font-medium tracking-[0.3em] uppercase">• Evidence-Based Therapy</span>
+                <span className="mx-8 text-white/90 text-sm font-medium tracking-[0.3em] uppercase">• Safe &amp; Confidential</span>
+                <span className="mx-8 text-white/90 text-sm font-medium tracking-[0.3em] uppercase">• Licensed Therapists</span>
+                <span className="mx-8 text-white/90 text-sm font-medium tracking-[0.3em] uppercase">• 10+ Years Experience</span>
+                <span className="mx-8 text-white/90 text-sm font-medium tracking-[0.3em] uppercase">• 500+ Clients Helped</span>
+              </span>
+            ))}
+          </div>
+        </div>
+
         {/* Philosophy Section */}
         <section id="philosophy" className="py-16 md:py-24 px-6 bg-[#f7f1e5]/40 scroll-mt-24">
           <div className="max-w-6xl mx-auto">
