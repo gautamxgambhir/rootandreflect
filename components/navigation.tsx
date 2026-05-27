@@ -32,15 +32,15 @@ export function Navigation() {
       <nav
         className={`pointer-events-auto transition-all duration-500 ease-out flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 rounded-full ${
           scrolled
-            ? 'bg-[#0c120e]/90 backdrop-blur-xl border border-white/10 shadow-[0_12px_40px_rgba(6,10,10,0.3)] w-full max-w-3xl sm:max-w-4xl'
-            : 'bg-black/20 backdrop-blur-md border border-white/10 w-full max-w-4xl sm:max-w-5xl'
+            ? 'bg-white/95 backdrop-blur-xl border border-black/10 shadow-[0_12px_40px_rgba(0,0,0,0.12)] w-full max-w-3xl sm:max-w-4xl'
+            : 'bg-white/80 backdrop-blur-md border border-black/10 shadow-[0_4px_20px_rgba(0,0,0,0.08)] w-full max-w-4xl sm:max-w-5xl'
         }`}
       >
         {/* Mobile Menu Trigger */}
         <div className="md:hidden">
           <Sheet open={isMobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="text-white hover:bg-white/10">
+              <Button variant="ghost" size="icon" className="text-[#142214] hover:bg-black/5">
                 <Menu className="h-6 w-6" />
               </Button>
             </SheetTrigger>
@@ -76,7 +76,7 @@ export function Navigation() {
         {/* Logo */}
         <Link
           href="/"
-          className="text-xl sm:text-2xl font-serif font-light tracking-wide text-white hover:text-white/90 transition-colors"
+          className="text-xl sm:text-2xl font-serif font-light tracking-wide text-[#142214] hover:text-[#142214]/80 transition-colors"
         >
           Root &amp; Reflect
         </Link>
@@ -88,12 +88,12 @@ export function Navigation() {
               key={link.name}
               href={link.href}
               className={`text-sm font-medium tracking-wide uppercase transition-colors relative group ${
-                pathname === link.href ? 'text-white' : 'text-white/80 hover:text-white'
+                pathname === link.href ? 'text-[#142214]' : 'text-[#142214]/70 hover:text-[#142214]'
               }`}
             >
               {link.name}
               <span
-                className={`absolute -bottom-1 left-0 h-0.5 bg-white transition-all duration-300 ${
+                className={`absolute -bottom-1 left-0 h-0.5 bg-[#142214] transition-all duration-300 ${
                   pathname === link.href ? 'w-full' : 'w-0 group-hover:w-full'
                 }`}
               />
