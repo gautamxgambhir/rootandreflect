@@ -16,6 +16,7 @@ export function Navigation() {
   const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isVisible, setIsVisible] = useState(true)
+  const [isScrolled, setIsScrolled] = useState(false)
   const lastScrollY = useRef(0)
 
   useEffect(() => {
@@ -28,6 +29,8 @@ export function Navigation() {
           const diff = currentScrollY - lastScrollY.current
 
           // Always visible at the absolute top of the page
+          setIsScrolled(currentScrollY > 20)
+
           if (currentScrollY <= 80) {
             setIsVisible(true)
           } else if (!mobileMenuOpen) {
@@ -51,7 +54,7 @@ export function Navigation() {
 
   return (
     <header className={`fixed top-6 left-0 right-0 z-50 flex justify-center px-6 pointer-events-none transition-all duration-350 ease-in-out ${isVisible ? 'translate-y-0 opacity-100 scale-100' : '-translate-y-32 opacity-0 scale-95'}`}>
-      <nav className={`w-full max-w-6xl border border-white/10 px-8 py-4.5 flex flex-col md:flex-row md:items-center justify-between text-white pointer-events-auto shadow-2xl transition-all duration-300 ${mobileMenuOpen ? 'rounded-[24px] bg-[#0c120e]/95 backdrop-blur-2xl' : 'rounded-full bg-black/35 backdrop-blur-lg'}`}>
+      <nav className={`w-full max-w-6xl border border-white/10 px-8 py-4.5 flex flex-col md:flex-row md:items-center justify-between text-white pointer-events-auto shadow-2xl transition-all duration-300 ${mobileMenuOpen ? 'rounded-[24px] bg-[#0c120e]/95 backdrop-blur-2xl' : isScrolled ? 'rounded-full bg-[#0c120e]/90 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]' : 'rounded-full bg-black/35 backdrop-blur-lg'}`}>
         <div className="flex items-center justify-between w-full md:w-auto">
           <Link href="/" className="text-xl md:text-2xl lg:text-3xl font-serif font-light tracking-wide text-white hover:text-white/90 transition-colors">
             Root & Reflect
