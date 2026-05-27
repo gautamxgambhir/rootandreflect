@@ -2,115 +2,120 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { Button } from '@/components/ui/button'
 
 const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
-  { href: '/services', label: 'Services' },
-  { href: '/contact', label: 'Contact' },
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/about' },
+  { name: 'Services', href: '/services' },
+  { name: 'Contact', href: '/contact' },
 ]
 
 export function Navigation() {
   const pathname = usePathname()
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10)
+      setScrolled(window.scrollY > 20)
     }
-    window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-[#0c120e]/95 backdrop-blur-xl shadow-lg'
-          : 'bg-transparent'
-      }`}
-    >
-      <nav className="max-w-7xl mx-auto px-6 md:px-10 py-4 flex items-center justify-between text-white">
+    <div className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-6 px-4 pointer-events-none">
+      <nav
+        className={`pointer-events-auto transition-all duration-500 ease-out flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 rounded-full ${
+          scrolled
+            ? 'bg-[#0c120e]/90 backdrop-blur-xl border border-white/10 shadow-[0_12px_40px_rgba(6,10,10,0.3)] w-full max-w-3xl sm:max-w-4xl'
+            : 'bg-black/20 backdrop-blur-md border border-white/10 w-full max-w-4xl sm:max-w-5xl'
+        }`}
+      >
+        {/* Mobile Menu Trigger */}
+        <div className="md:hidden">
+          <Sheet open={isMobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="text-white hover:bg-white/10">
+                <Menu className="h-6 w-6" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-[300px] sm:w-[400px] bg-[#0c120e] border-white/10">
+              <div className="flex flex-col gap-8 mt-10">
+                <Link href="/" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-serif font-light text-white">
+                  Root &amp; Reflect
+                </Link>
+                <div className="flex flex-col gap-4">
+                  {navLinks.map((link) => (
+                    <Link
+                      key={link.name}
+                      href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`text-lg font-medium transition-colors ${
+                        pathname === link.href ? 'text-white' : 'text-white/70 hover:text-white'
+                      }`}
+                    >
+                      {link.name}
+                    </Link>
+                  ))}
+                </div>
+                <Link href="/appointment" onClick={() => setMobileMenuOpen(false)}>
+                  <Button className="w-full rounded-full bg-white text-[#142214] font-bold hover:bg-white/90">
+                    Book Appointment
+                  </Button>
+                </Link>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
+
         {/* Logo */}
         <Link
           href="/"
-          className="text-xl md:text-2xl font-serif font-light tracking-wide text-white hover:text-white/90 transition-colors"
+          className="text-xl sm:text-2xl font-serif font-light tracking-wide text-white hover:text-white/90 transition-colors"
         >
           Root &amp; Reflect
         </Link>
 
         {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-8 lg:gap-10">
-          {navLinks.map((link) => {
-            const isActive = pathname === link.href
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`relative text-[13px] uppercase tracking-[0.2em] font-bold transition-colors duration-300 py-1 ${
-                  isActive ? 'text-white' : 'text-white/70 hover:text-white'
-                } after:absolute after:bottom-[-2px] after:left-0 after:w-full after:h-[1px] after:bg-white after:transition-transform after:duration-300 ${
-                  isActive
-                    ? 'after:scale-x-100'
-                    : 'after:scale-x-0 hover:after:scale-x-100 after:origin-bottom-left'
+        <div className="hidden md:flex items-center gap-6 lg:gap-8">
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              href={link.href}
+              className={`text-sm font-medium tracking-wide uppercase transition-colors relative group ${
+                pathname === link.href ? 'text-white' : 'text-white/80 hover:text-white'
+              }`}
+            >
+              {link.name}
+              <span
+                className={`absolute -bottom-1 left-0 h-0.5 bg-white transition-all duration-300 ${
+                  pathname === link.href ? 'w-full' : 'w-0 group-hover:w-full'
                 }`}
-              >
-                {link.label}
-              </Link>
-            )
-          })}
+              />
+            </Link>
+          ))}
         </div>
 
-        {/* Desktop CTA */}
+        {/* CTA Button */}
         <div className="hidden md:block">
-          <Link
-            href="/appointment"
-            className="px-6 py-2.5 text-xs md:text-sm uppercase tracking-wider bg-white text-[#142214] font-bold rounded-full hover:bg-white/90 hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg"
-          >
-            Book Appointment
+          <Link href="/appointment">
+            <Button
+              size="sm"
+              className="rounded-full px-4 lg:px-6 py-2 font-bold text-sm bg-white text-[#142214] hover:bg-white/90 transition-all"
+            >
+              Book Appointment
+            </Button>
           </Link>
         </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden p-1 text-white hover:text-white/80 transition-colors"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
+        {/* Spacer for mobile layout balance */}
+        <div className="w-6 md:hidden" />
       </nav>
-
-      {/* Mobile Dropdown */}
-      {mobileMenuOpen && (
-        <div className="md:hidden bg-[#0c120e]/97 backdrop-blur-xl border-t border-white/10 px-6 pb-6 flex flex-col gap-4 animate-in fade-in slide-in-from-top-2 duration-200">
-          {navLinks.map((link) => {
-            const isActive = pathname === link.href
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`py-3 text-center text-sm uppercase tracking-[0.2em] font-bold border-b border-white/10 transition-colors ${
-                  isActive ? 'text-white' : 'text-white/70 hover:text-white'
-                }`}
-              >
-                {link.label}
-              </Link>
-            )
-          })}
-          <Link
-            href="/appointment"
-            onClick={() => setMobileMenuOpen(false)}
-            className="mt-2 px-6 py-3.5 text-center text-xs uppercase tracking-widest bg-white text-[#142214] font-bold rounded-full hover:bg-white/90 active:scale-95 transition-all shadow-lg"
-          >
-            Book Appointment
-          </Link>
-        </div>
-      )}
-    </header>
+    </div>
   )
 }
