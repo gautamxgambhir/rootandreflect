@@ -148,7 +148,7 @@ export default function AboutPage() {
               {team.map((member) => (
                 <div
                   key={member.name}
-                  className="bg-card p-8 rounded-2xl border border-border"
+                  className="bg-card p-8 rounded-2xl border border-border/80 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
                 >
                   <div className="w-20 h-20 bg-secondary rounded-full mb-6 flex items-center justify-center">
                     <span className="text-2xl font-light text-foreground">

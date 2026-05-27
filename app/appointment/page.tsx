@@ -376,7 +376,7 @@ export default function AppointmentPage() {
                     type="button"
                     onClick={() => setStep(step + 1)}
                     disabled={!canProceed()}
-                    className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-full hover:bg-primary/95 active:scale-95 transition-all shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100 disabled:shadow-none"
                   >
                     Continue
                     <ArrowRight size={18} />
@@ -385,7 +385,7 @@ export default function AppointmentPage() {
                   <button
                     type="submit"
                     disabled={!canProceed()}
-                    className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-full hover:bg-primary/95 active:scale-95 transition-all shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100 disabled:shadow-none"
                   >
                     Book Appointment
                     <ArrowRight size={18} />

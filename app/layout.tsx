@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Cormorant_Garamond, Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { SmoothScroll } from '@/components/smooth-scroll'
+import { PageTransition } from '@/components/page-transition'
 import './globals.css'
 
 const cormorant = Cormorant_Garamond({ 
@@ -27,7 +29,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-background">
       <body className={`${cormorant.variable} ${inter.variable} font-serif antialiased`}>
-        {children}
+        <SmoothScroll>
+          <PageTransition>
+            {children}
+          </PageTransition>
+        </SmoothScroll>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

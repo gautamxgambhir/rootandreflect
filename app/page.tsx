@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight, Leaf, Heart, Sparkles } from 'lucide-react'
+import { ArrowRight, ArrowDown, Leaf, Heart, Sparkles } from 'lucide-react'
 import { Navigation } from '@/components/navigation'
 import { Footer } from '@/components/footer'
 
@@ -9,76 +9,87 @@ export default function HomePage() {
       <Navigation />
       
       <main>
-        {/* Hero Section */}
-        <section className="min-h-screen flex items-center justify-center pt-20 px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground mb-6">
+        {/* Hero Section with Background Image */}
+        <section className="relative h-screen flex flex-col items-center justify-center px-6 bg-pattern bg-cover bg-center overflow-hidden z-10">
+          {/* Background Overlay */}
+          <div className="absolute inset-0 bg-hero-overlay -z-10" />
+          
+          <div className="max-w-4xl mx-auto text-center space-y-6 z-10 pt-20">
+            <div className="w-[1px] h-12 bg-white/20 mx-auto mb-4 animate-pulse" />
+            <p className="text-xs md:text-sm uppercase tracking-[0.3em] text-white/70 font-light mb-6">
               Psychotherapy Practice
             </p>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-light leading-tight text-foreground mb-8 text-balance">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-light leading-tight text-white mb-6 text-balance tracking-wide">
               Find your roots.
               <br />
-              <span className="italic">Embrace reflection.</span>
+              <span className="italic font-light">Embrace reflection.</span>
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-12">
+            <p className="text-sm md:text-base lg:text-lg text-white/80 max-w-2xl mx-auto leading-relaxed mb-10 font-light">
               A safe space for healing and growth. We offer compassionate, 
               evidence-based therapy to help you navigate life&apos;s challenges 
               and discover your authentic self.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link
                 href="/appointment"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-colors text-lg"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white text-[#142214] font-medium rounded-full hover:bg-white/95 active:scale-95 transition-all shadow-lg"
               >
                 Begin Your Journey
-                <ArrowRight size={20} />
+                <ArrowRight size={18} />
               </Link>
               <Link
                 href="/services"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-border text-foreground rounded-full hover:bg-secondary transition-colors text-lg"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 border border-white/30 text-white font-light rounded-full hover:bg-white/10 active:scale-95 transition-all"
               >
                 Our Services
               </Link>
             </div>
           </div>
+
+          {/* Bottom Down Arrow Indicator */}
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
+            <a href="#philosophy" aria-label="Scroll down to philosophy" className="text-white/50 hover:text-white transition-colors">
+              <ArrowDown size={24} className="stroke-[1.5]" />
+            </a>
+          </div>
         </section>
 
         {/* Philosophy Section */}
-        <section className="py-24 px-6 bg-secondary/30">
+        <section id="philosophy" className="py-16 md:py-24 px-6 bg-[#f7f1e5]/40 scroll-mt-24">
           <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-center">
               <div>
-                <h2 className="text-3xl md:text-4xl font-light text-foreground mb-6">
-                  Our Approach to <span className="italic">Healing</span>
+                <h2 className="text-3xl md:text-4xl font-light font-serif text-foreground mb-6">
+                  Our Approach to <span className="italic font-light">Healing</span>
                 </h2>
-                <p className="text-muted-foreground leading-relaxed mb-6">
+                <p className="text-muted-foreground leading-relaxed mb-4 font-light">
                   At Root & Reflect, we believe that true healing begins with understanding. 
                   Our therapeutic approach combines evidence-based practices with deep 
                   compassion, creating a nurturing environment where you can explore your 
                   inner world safely.
                 </p>
-                <p className="text-muted-foreground leading-relaxed mb-8">
+                <p className="text-muted-foreground leading-relaxed mb-6 font-light">
                   We work collaboratively with you to uncover the roots of your challenges 
                   and develop meaningful insights that lead to lasting change.
                 </p>
                 <Link
                   href="/about"
-                  className="inline-flex items-center gap-2 text-primary hover:gap-3 transition-all"
+                  className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all"
                 >
                   Learn About Our Practice
                   <ArrowRight size={18} />
                 </Link>
               </div>
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
                   { number: '10+', label: 'Years Experience' },
                   { number: '500+', label: 'Clients Helped' },
                   { number: '98%', label: 'Client Satisfaction' },
                   { number: '3', label: 'Licensed Therapists' },
                 ].map((stat) => (
-                  <div key={stat.label} className="bg-card p-8 rounded-2xl border border-border">
+                  <div key={stat.label} className="bg-card p-6 rounded-2xl border border-border/80 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
                     <p className="text-3xl md:text-4xl font-light text-primary mb-2">{stat.number}</p>
-                    <p className="text-sm text-muted-foreground">{stat.label}</p>
+                    <p className="text-xs md:text-sm text-muted-foreground font-light tracking-wide">{stat.label}</p>
                   </div>
                 ))}
               </div>
@@ -87,19 +98,19 @@ export default function HomePage() {
         </section>
 
         {/* Services Preview */}
-        <section className="py-24 px-6">
+        <section className="py-16 md:py-24 px-6">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-light text-foreground mb-4">
-                How We Can <span className="italic">Help</span>
+            <div className="text-center mb-12 md:mb-16">
+              <h2 className="text-3xl md:text-4xl font-light font-serif text-foreground mb-4">
+                How We Can <span className="italic font-light">Help</span>
               </h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-muted-foreground max-w-2xl mx-auto font-light leading-relaxed">
                 We offer a range of therapeutic services tailored to meet your unique needs 
                 and support your journey toward wellness.
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
               {[
                 {
                   icon: Leaf,
@@ -119,16 +130,20 @@ export default function HomePage() {
               ].map((service) => (
                 <div
                   key={service.title}
-                  className="group p-8 bg-card rounded-2xl border border-border hover:border-primary/30 transition-colors"
+                  className="group p-8 bg-card rounded-2xl border border-border/85 shadow-sm hover:shadow-xl hover:border-primary/20 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between"
                 >
-                  <service.icon className="w-10 h-10 text-primary mb-6" strokeWidth={1.5} />
-                  <h3 className="text-xl font-medium text-foreground mb-3">{service.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed mb-6">
-                    {service.description}
-                  </p>
+                  <div>
+                    <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-6 text-primary group-hover:scale-110 transition-transform duration-300">
+                      <service.icon className="w-6 h-6 stroke-[1.5]" />
+                    </div>
+                    <h3 className="text-xl font-medium text-foreground mb-3">{service.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed text-sm font-light">
+                      {service.description}
+                    </p>
+                  </div>
                   <Link
                     href="/services"
-                    className="inline-flex items-center gap-2 text-sm text-primary group-hover:gap-3 transition-all"
+                    className="mt-6 inline-flex items-center gap-2 text-sm text-primary font-medium group-hover:gap-3 transition-all"
                   >
                     Learn More
                     <ArrowRight size={16} />
@@ -140,22 +155,24 @@ export default function HomePage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-24 px-6 bg-primary text-primary-foreground">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-light mb-6">
-              Ready to Begin?
+        <section className="py-16 md:py-24 px-6 bg-gradient-to-br from-[#555435] to-[#3a3922] text-white">
+          <div className="max-w-4xl mx-auto text-center space-y-6">
+            <h2 className="text-3xl md:text-4xl font-light font-serif tracking-wide">
+              Ready to <span className="italic font-light">Begin?</span>
             </h2>
-            <p className="text-primary-foreground/80 text-lg mb-10 max-w-2xl mx-auto">
+            <p className="text-white/80 text-base md:text-lg max-w-2xl mx-auto font-light leading-relaxed">
               Taking the first step toward therapy is an act of courage. 
               We&apos;re here to walk alongside you on your journey to healing.
             </p>
-            <Link
-              href="/appointment"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-background text-foreground rounded-full hover:bg-background/90 transition-colors text-lg"
-            >
-              Schedule a Consultation
-              <ArrowRight size={20} />
-            </Link>
+            <div className="pt-4">
+              <Link
+                href="/appointment"
+                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white text-[#555435] font-medium rounded-full hover:bg-white/95 active:scale-95 transition-all shadow-lg"
+              >
+                Schedule a Consultation
+                <ArrowRight size={18} />
+              </Link>
+            </div>
           </div>
         </section>
       </main>

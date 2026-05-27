@@ -11,10 +11,10 @@
   --card-foreground: oklch(0.25 0.02 60);
   --popover: oklch(0.99 0.005 80);
   --popover-foreground: oklch(0.25 0.02 60);
-  --primary: #b37048;
-  --primary-foreground: #ffffff;
-  --secondary: #555435;
-  --secondary-foreground: #f8f3e8;
+  --primary: #555435;
+  --primary-foreground: #f8f3e8;
+  --secondary: #b37048;
+  --secondary-foreground: #ffffff;
   --muted: #f7f1e5;
   --muted-foreground: #4a4534;
   --accent: #b37048;
@@ -120,9 +120,12 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-background text-foreground antialiased;
-    font-weight: 500;
+    font-weight: 600;
     animation: page-fade-in 0.9s ease-out both;
     min-height: 100vh;
   }
@@ -134,14 +137,14 @@
   h6,
   strong,
   b {
-    font-weight: 600;
+    font-weight: 700;
   }
   button,
   input,
   textarea,
   select,
   label {
-    font-weight: 500;
+    font-weight: 600;
   }
 }
 
@@ -193,5 +196,67 @@
   .interactive-surface:focus-visible {
     transform: translateY(-2px) scale(1.01);
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+  }
+  /* Global Custom Scrollbar */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) var(--background);
+  }
+  
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--background);
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--primary);
+    border-radius: 9999px;
+    border: 3px solid var(--background);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: color-mix(in srgb, var(--primary) 80%, black);
+  }
+  
+  /* Background Image Classes */
+  .bg-pattern {
+    background-image: url('/zen-moss.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  .bg-hero-overlay {
+    background: radial-gradient(circle at center, rgba(15, 25, 12, 0.4) 0%, rgba(8, 14, 6, 0.75) 100%);
+  }
+  
+  .bg-overlay {
+    background-color: rgba(255, 255, 255, 0.85);
+  }
+  
+  .dark .bg-overlay {
+    background-color: rgba(30, 30, 30, 0.85);
+  }
+
+  /* Lenis Smooth Scroll Configuration */
+  html.lenis, html.lenis body {
+    height: auto;
+  }
+  
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+  
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
   }
 }

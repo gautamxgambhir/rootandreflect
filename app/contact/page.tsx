@@ -126,7 +126,7 @@ export default function ContactPage() {
               </div>
 
               {/* Contact Form */}
-              <div className="bg-card p-8 md:p-10 rounded-2xl border border-border">
+              <div className="bg-card p-8 md:p-10 rounded-2xl border border-border/80 shadow-sm">
                 {submitted ? (
                   <div className="text-center py-12">
                     <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -230,7 +230,7 @@ export default function ContactPage() {
 
                       <button
                         type="submit"
-                        className="w-full py-4 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-colors text-lg font-medium"
+                        className="w-full py-3.5 bg-primary text-primary-foreground rounded-full hover:bg-primary/95 active:scale-95 transition-all text-base font-medium shadow-md shadow-primary/10"
                       >
                         Send Message
                       </button>
