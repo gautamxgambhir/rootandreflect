@@ -1,10 +1,13 @@
 'use client'
 
+import type { Metadata } from 'next'
 import { useState } from 'react'
 import Link from 'next/link'
 import { Mail, Phone, MapPin, Clock, Send } from 'lucide-react'
 import { Navigation } from '@/components/navigation'
 import { Footer } from '@/components/footer'
+import { StructuredData } from '@/components/structured-data'
+import { seoConfig } from '@/lib/seo'
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -22,8 +25,27 @@ export default function ContactPage() {
     setSubmitted(true)
   }
 
+  const breadcrumbData = {
+    path: '/contact',
+    items: [
+      { name: 'Home', path: '/' },
+      { name: 'Contact', path: '/contact' }
+    ]
+  }
+
   return (
     <>
+      <StructuredData 
+        type="webpage" 
+        data={{
+          title: 'Contact Root & Reflect Psychotherapy',
+          description: 'Contact information, office hours, and appointment scheduling',
+          path: '/contact',
+          breadcrumb: breadcrumbData
+        }} 
+      />
+      <StructuredData type="breadcrumb" data={breadcrumbData} />
+      
       <Navigation />
       
       <main className="pt-24">
@@ -54,18 +76,18 @@ export default function ContactPage() {
                 </h2>
                 
                 <div className="space-y-8">
-                  <div className="flex gap-4">
+                  <address className="flex gap-4 not-italic">
                     <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
                       <MapPin className="w-5 h-5 text-primary" />
                     </div>
                     <div>
                       <h3 className="font-medium text-foreground mb-1">Office Location</h3>
                       <p className="text-muted-foreground">
-                        123 Healing Lane, Suite 200<br />
-                        Wellness City, WC 12345
+                        {seoConfig.business.address.street}<br />
+                        {seoConfig.business.address.city}, {seoConfig.business.address.state} {seoConfig.business.address.zipCode}
                       </p>
                     </div>
-                  </div>
+                  </address>
 
                   <div className="flex gap-4">
                     <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
@@ -73,8 +95,12 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-medium text-foreground mb-1">Phone</h3>
-                      <a href="tel:+15551234567" className="text-muted-foreground hover:text-primary transition-colors">
-                        (555) 123-4567
+                      <a 
+                        href={`tel:${seoConfig.business.phone.replace(/[^\d+]/g, '')}`} 
+                        className="text-muted-foreground hover:text-primary transition-colors"
+                        aria-label={`Call us at ${seoConfig.business.phone}`}
+                      >
+                        {seoConfig.business.phone}
                       </a>
                     </div>
                   </div>
@@ -85,8 +111,12 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-medium text-foreground mb-1">Email</h3>
-                      <a href="mailto:hello@rootandreflect.com" className="text-muted-foreground hover:text-primary transition-colors">
-                        hello@rootandreflect.com
+                      <a 
+                        href={`mailto:${seoConfig.business.email}`} 
+                        className="text-muted-foreground hover:text-primary transition-colors"
+                        aria-label={`Email us at ${seoConfig.business.email}`}
+                      >
+                        {seoConfig.business.email}
                       </a>
                     </div>
                   </div>
@@ -97,11 +127,11 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-medium text-foreground mb-1">Office Hours</h3>
-                      <p className="text-muted-foreground">
-                        Monday - Friday: 9:00 AM - 7:00 PM<br />
-                        Saturday: 9:00 AM - 2:00 PM<br />
-                        Sunday: Closed
-                      </p>
+                      <div className="text-muted-foreground space-y-1">
+                        <p>Monday - Friday: 9:00 AM - 7:00 PM</p>
+                        <p>Saturday: 9:00 AM - 2:00 PM</p>
+                        <p>Sunday: Closed</p>
+                      </div>
                     </div>
                   </div>
                 </div>

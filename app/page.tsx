@@ -1,11 +1,39 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, ArrowDown, Leaf, Heart, Sparkles } from 'lucide-react'
 import { Navigation } from '@/components/navigation'
 import { Footer } from '@/components/footer'
+import { StructuredData } from '@/components/structured-data'
+import { generatePageMetadata, seoConfig } from '@/lib/seo'
+
+export const metadata: Metadata = generatePageMetadata({
+  title: 'Compassionate Psychotherapy & Mental Health Care',
+  description: 'Root & Reflect offers professional psychotherapy services including individual therapy, couples counseling, family therapy, and trauma-informed care. Begin your healing journey in a safe, supportive environment.',
+  path: ''
+})
 
 export default function HomePage() {
+  const breadcrumbData = {
+    path: '',
+    items: [
+      { name: 'Home', path: '/' }
+    ]
+  }
+
   return (
     <>
+      <StructuredData 
+        type="webpage" 
+        data={{
+          title: 'Root & Reflect Psychotherapy - Compassionate Mental Health Care',
+          description: 'Professional psychotherapy services in a healing environment',
+          path: '',
+          breadcrumb: breadcrumbData,
+          mainEntity: true
+        }} 
+      />
+      <StructuredData type="breadcrumb" data={breadcrumbData} />
+      
       <Navigation />
       
       <main>
@@ -33,6 +61,7 @@ export default function HomePage() {
               <Link
                 href="/appointment"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white text-[#142214] font-medium rounded-full hover:bg-white/95 active:scale-95 transition-all shadow-lg"
+                aria-label="Schedule your first therapy appointment"
               >
                 Begin Your Journey
                 <ArrowRight size={18} />
@@ -40,6 +69,7 @@ export default function HomePage() {
               <Link
                 href="/services"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 border border-white/30 text-white font-light rounded-full hover:bg-white/10 active:scale-95 transition-all"
+                aria-label="View our therapy services"
               >
                 Our Services
               </Link>

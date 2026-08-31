@@ -1,7 +1,16 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, GraduationCap, Award, Heart } from 'lucide-react'
 import { Navigation } from '@/components/navigation'
 import { Footer } from '@/components/footer'
+import { StructuredData } from '@/components/structured-data'
+import { generatePageMetadata, therapists as seoTherapists } from '@/lib/seo'
+
+export const metadata: Metadata = generatePageMetadata({
+  title: 'About Our Practice - Licensed Therapists & Mental Health Professionals',
+  description: 'Meet our team of licensed psychologists and therapists at Root & Reflect. Founded in 2014, we provide compassionate, evidence-based mental health care with over 15 years of combined experience.',
+  path: '/about'
+})
 
 const team = [
   {
@@ -46,8 +55,41 @@ const values = [
 ]
 
 export default function AboutPage() {
+  const breadcrumbData = {
+    path: '/about',
+    items: [
+      { name: 'Home', path: '/' },
+      { name: 'About', path: '/about' }
+    ]
+  }
+
   return (
     <>
+      <StructuredData 
+        type="webpage" 
+        data={{
+          title: 'About Root & Reflect Psychotherapy Practice',
+          description: 'Learn about our licensed therapists and mental health professionals',
+          path: '/about',
+          breadcrumb: breadcrumbData
+        }} 
+      />
+      <StructuredData type="breadcrumb" data={breadcrumbData} />
+      {/* Add individual therapist structured data */}
+      {team.map((member, index) => (
+        <StructuredData 
+          key={member.name}
+          type="person" 
+          data={{
+            id: member.name.toLowerCase().replace(/\s+/g, '-').replace(/\./g, ''),
+            name: member.name,
+            role: member.role,
+            bio: member.bio,
+            specialties: member.specialties
+          }} 
+        />
+      ))}
+      
       <Navigation />
       
       <main className="pt-24">

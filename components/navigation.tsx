@@ -50,6 +50,7 @@ export function Navigation() {
                 variant="ghost"
                 size="icon"
                 className={scrolled ? 'text-foreground hover:bg-black/5' : 'text-white hover:bg-white/10'}
+                aria-label="Open navigation menu"
               >
                 <Menu className="h-6 w-6" />
               </Button>
@@ -91,6 +92,7 @@ export function Navigation() {
           className={`text-xl sm:text-2xl font-serif font-light tracking-wide transition-colors ${
             scrolled ? 'text-primary' : 'text-white'
           }`}
+          aria-label="Root & Reflect Psychotherapy - Return to homepage"
         >
           Root &amp; Reflect
         </Link>
@@ -123,7 +125,7 @@ export function Navigation() {
 
         {/* CTA Button */}
         <div className="hidden md:block">
-          <Link href="/appointment">
+          <Link href="/appointment" aria-label="Schedule therapy appointment">
             <Button
               size="sm"
               className={`rounded-full px-4 lg:px-6 py-2 font-medium text-sm transition-all ${

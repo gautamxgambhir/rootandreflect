@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Calendar, Clock, User, ArrowRight, CheckCircle } from 'lucide-react'
 import { Navigation } from '@/components/navigation'
 import { Footer } from '@/components/footer'
+import { StructuredData } from '@/components/structured-data'
 
 const therapists = [
   { id: '1', name: 'Dr. Sarah Mitchell', specialty: 'Trauma & Anxiety' },
@@ -54,6 +55,14 @@ export default function AppointmentPage() {
     }
   }
 
+  const breadcrumbData = {
+    path: '/appointment',
+    items: [
+      { name: 'Home', path: '/' },
+      { name: 'Book Appointment', path: '/appointment' }
+    ]
+  }
+
   if (submitted) {
     return (
       <>
@@ -71,7 +80,7 @@ export default function AppointmentPage() {
               appointment via email within 24 hours.
             </p>
             <div className="bg-card p-6 rounded-2xl border border-border text-left mb-8">
-              <h3 className="font-medium text-foreground mb-4">Appointment Details</h3>
+              <h2 className="font-medium text-foreground mb-4">Appointment Details</h2>
               <div className="space-y-3 text-sm">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Session Type:</span>
@@ -102,6 +111,17 @@ export default function AppointmentPage() {
 
   return (
     <>
+      <StructuredData 
+        type="webpage" 
+        data={{
+          title: 'Book Appointment - Root & Reflect Psychotherapy',
+          description: 'Online appointment scheduling for therapy services',
+          path: '/appointment',
+          breadcrumb: breadcrumbData
+        }} 
+      />
+      <StructuredData type="breadcrumb" data={breadcrumbData} />
+      
       <Navigation />
       
       <main className="pt-24">

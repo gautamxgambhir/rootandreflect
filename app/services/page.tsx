@@ -1,7 +1,16 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, Leaf, Heart, Sparkles, Users, Brain, Shield } from 'lucide-react'
 import { Navigation } from '@/components/navigation'
 import { Footer } from '@/components/footer'
+import { StructuredData } from '@/components/structured-data'
+import { generatePageMetadata, services as seoServices } from '@/lib/seo'
+
+export const metadata: Metadata = generatePageMetadata({
+  title: 'Therapy Services - Individual, Couples, Family & Trauma Care',
+  description: 'Comprehensive psychotherapy services including individual therapy, couples counseling, family therapy, trauma-informed care, anxiety treatment, depression support, and grief counseling. Evidence-based approaches in a supportive environment.',
+  path: '/services'
+})
 
 const services = [
   {
@@ -73,8 +82,27 @@ const services = [
 ]
 
 export default function ServicesPage() {
+  const breadcrumbData = {
+    path: '/services',
+    items: [
+      { name: 'Home', path: '/' },
+      { name: 'Services', path: '/services' }
+    ]
+  }
+
   return (
     <>
+      <StructuredData 
+        type="webpage" 
+        data={{
+          title: 'Therapy Services - Root & Reflect Psychotherapy',
+          description: 'Comprehensive mental health services including individual, couples, family therapy and more',
+          path: '/services',
+          breadcrumb: breadcrumbData
+        }} 
+      />
+      <StructuredData type="breadcrumb" data={breadcrumbData} />
+      
       <Navigation />
       
       <main className="pt-24">
@@ -98,8 +126,8 @@ export default function ServicesPage() {
         <section className="py-16 px-6 bg-secondary/30">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {services.map((service) => (
-                <div
+              {services.map((service, index) => (
+                <article
                   key={service.title}
                   className="bg-card p-8 md:p-10 rounded-2xl border border-border/80 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300"
                 >
@@ -109,7 +137,7 @@ export default function ServicesPage() {
                     {service.description}
                   </p>
                   <div className="border-t border-border pt-6">
-                    <p className="text-sm font-medium text-foreground mb-3">Areas of Focus:</p>
+                    <h3 className="text-sm font-medium text-foreground mb-3">Areas of Focus:</h3>
                     <ul className="grid grid-cols-2 gap-2">
                       {service.details.map((detail) => (
                         <li key={detail} className="text-sm text-muted-foreground flex items-center gap-2">
@@ -119,7 +147,7 @@ export default function ServicesPage() {
                       ))}
                     </ul>
                   </div>
-                </div>
+                </article>
               ))}
             </div>
           </div>
@@ -141,28 +169,28 @@ export default function ServicesPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {[
                 {
-                  title: 'Cognitive Behavioral Therapy',
-                  description: 'Identify and change negative thought patterns that contribute to emotional distress.',
+                  title: 'Cognitive Behavioral Therapy (CBT)',
+                  description: 'Identify and change negative thought patterns that contribute to emotional distress and behavioral challenges.',
                 },
                 {
                   title: 'Psychodynamic Therapy',
-                  description: 'Explore how past experiences shape current behaviors and relationships.',
+                  description: 'Explore how past experiences shape current behaviors and relationships to promote deeper self-understanding.',
                 },
                 {
                   title: 'Mindfulness-Based Therapy',
-                  description: 'Develop present-moment awareness to reduce stress and improve well-being.',
+                  description: 'Develop present-moment awareness to reduce stress, manage difficult emotions, and improve overall well-being.',
                 },
                 {
-                  title: 'EMDR',
-                  description: 'Process traumatic memories through guided eye movements and bilateral stimulation.',
+                  title: 'EMDR (Eye Movement Desensitization and Reprocessing)',
+                  description: 'Process traumatic memories through guided eye movements and bilateral stimulation to reduce their emotional impact.',
                 },
               ].map((approach) => (
-                <div key={approach.title} className="p-6 border-l-2 border-primary/30">
+                <article key={approach.title} className="p-6 border-l-2 border-primary/30">
                   <h3 className="text-lg font-medium text-foreground mb-2">{approach.title}</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">
                     {approach.description}
                   </p>
-                </div>
+                </article>
               ))}
             </div>
           </div>
